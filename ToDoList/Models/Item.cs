@@ -216,7 +216,7 @@ namespace ToDoList.Models
 
             // Constructor below no longer includes a itemCategoryId parameter:
             Item newItem = new Item(itemName, itemId);
-            newItem.SetDate(ItemDueDate);
+            newItem.SetDate(itemDueDate);
             conn.Close();
             if (conn != null)
             {

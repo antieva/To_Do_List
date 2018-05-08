@@ -1,14 +1,29 @@
-<h3>Here are all the items in this category:</h3>
-<ol>
-@if (@Model["items"] == null) {
-    <p><a href='/items/new'>Add a new item</a></p>
-} else {
-    foreach (var item in @Model["items"])
+@using ToDoList.Models;
+
+<h1>To Do List</h1>
+<h2>Category: @Model["category"].GetName()</h2>
+<hr />
+@if (@Model["items"].Count != 0)
+{
+  <h4>Here are all the items in this category:</h4>
+  <ul>
+    @foreach (var item in @Model["items"])
     {
-      <li><h4>@item.GetDescription() | <a href="/items/@item.GetId()/update">Edit</a><br> Should be done by @item.GetDate()</li>
+      <li>@item.GetDescription()</li>
+      <p>Should be done by: @item.GetDate()</p>
     }
+  </ul>
 }
-</ol>
-<p><a href='/categories/@Model["category"].GetId()/items/new'>Add a new item</a></p>
-<p><a href='/categories'>Return to category list</a></p>
-<p><a href='/home'>Return to Main Page</a></p>
+<h4>Add a item to this category:</h4>
+<form action='/categories/@Model["category"].GetId()/items/new’ method='post'>
+  <label for='item-id'>Select a item</label>
+  <select id='item-id' name='item-id' type='text'>
+    @foreach (var item in @Model["allItems"])
+    {
+      <option value='@item.GetId()'>@item.GetDescription()</option>
+    }
+  </select>
+  <button type='submit'>Add</button>
+</form>
+<p><a href="/categories/@Model["category"].GetId()/items/new">Add Item</a></p>
+<p><a href="/home">Return to Main Page</a></p>

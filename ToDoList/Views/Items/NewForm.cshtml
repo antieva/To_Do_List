@@ -7,9 +7,8 @@
   </head>
   <body>
     <div class="container">
-      <h1>Add a new item to @Model.GetName()</h1>
-      <form action='/categories/@Model.GetId()/items/new' method='post'>
-        <input id='category-id' name='category-id' type='hidden' value='@Model.GetId()'>
+      <h1>Add a new item</h1>
+      <form action='/newItem/new' method='post'>
         <div class='form-group'>
           <label for='item-description'>Item description</label>
           <input id='item-description' name='item-description' type='text'>
@@ -18,9 +17,17 @@
           <label for='item-due'>Should be done by:</label>
           <input id='item-due' name='item-due' type='text'>
         </div>
+        <h4>Add a item to this category:</h4>
+        <label for='item-id'>Select a item</label>
+        <select id='item-id' name='item-id' type='text'>
+          @foreach (var item in @Model)
+          {
+            <option value='@item.GetId()'>@item.GetName()</option>
+          }
+        </select>
         <button type='submit'>Add item</button>
       </form>
-      <p><a href="/">Back home</a></p>
+      <p><a href="/home">Back home</a></p>
       <p><a href="/items">View all items</a></p>
     </div>
   </body>
